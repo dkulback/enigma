@@ -5,7 +5,7 @@ class Enigma
     @keygen = key_gen
   end
 
-  def encrypt(message, key = key_gen.call, date = Date.today)
+  def encrypt(message, key = key_gen.call, date = Date.today.strftime('%d%m%y'))
     encrypted =
       {
         encryption: message,
@@ -14,7 +14,7 @@ class Enigma
       }
   end
 
-  def decrypt(message, key = key_gen.call, date = Date.today)
+  def decrypt(message, key = key_gen.call, date = Date.today.strftime('%d%m%y'))
     encrypted =
       {
         encryption: message,

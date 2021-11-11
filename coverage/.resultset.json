@@ -7,7 +7,7 @@
           1,
           null,
           1,
-          1,
+          0,
           null,
           null,
           1,
@@ -37,16 +37,16 @@
           1,
           null,
           1,
-          2,
           1,
           1,
-          1,
-          1,
+          0,
+          0,
+          0,
           null,
           1,
           1,
-          1,
-          1,
+          0,
+          0,
           null,
           null,
           null
@@ -58,16 +58,46 @@
           1,
           null,
           1,
-          1,
+          0,
           null,
           null,
           1,
-          1,
+          0,
           null,
           null
         ]
+      },
+      "/Users/darrenkulback/turing/1module/projects/enigma/spec/scrambler_spec.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/darrenkulback/turing/1module/projects/enigma/lib/scrambler.rb": {
+        "lines": [
+
+        ]
       }
     },
-    "timestamp": 1636609611
+    "timestamp": 1636610535
   }
 }
