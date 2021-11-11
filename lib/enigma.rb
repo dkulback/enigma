@@ -2,7 +2,7 @@ class Enigma
   attr_reader :key_gen
 
   def initialize(key_gen: KeyGen)
-    @keygen = keygen
+    @keygen = key_gen
   end
 
   def encrypt(message, key = key_gen.call, date = Date.today)

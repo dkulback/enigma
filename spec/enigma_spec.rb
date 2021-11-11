@@ -14,7 +14,7 @@ RSpec.describe Enigma do
   end
   let(:mock_key) { '01234' }
   let(:mock_generate_key) { MockGenKey.new(mock_key) }
-  let(:enigma) { Enigma.new(key_generator: mock_generate_key) }
+  let(:enigma) { Enigma.new(key_gen: mock_generate_key) }
 
   it 'exists' do
     actual = enigma

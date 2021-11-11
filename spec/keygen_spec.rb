@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require './lib/keygen'
 
 RSpec.describe KeyGen do
