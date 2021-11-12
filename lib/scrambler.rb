@@ -1,4 +1,11 @@
 class Scrambler
+  attr_reader :message, :date, :key, :character_set
+  def initialize(message, date, key)
+    @message = message
+    @date = date
+    @key = key
+    @character_set = ('a'..'z').to_a << ' '
+  end
 
   def keys(key, date = Date.today.strftime('%d%m%y'))
     keys =
@@ -30,4 +37,28 @@ class Scrambler
     end
   end
 
+  def splice_word(word)
+    scramble_word = word.split('')
+    rotator = combined(key, date)
+    new_word = " "
+    character_set_1 = character_set.group_by.with_index{|chr, index,| index }.transform_values{|letter| letter[0]}.invert
+    scramble_word.map do |letter|
+      rotator.map do |k, v|
+      character_set.rotate(character_set_1[letter] + rotator[k])
+     end
+   end
+  end
+
+  def index_values(message)
+    msg_array = message.split('')
+    character_set_new = character_set.group_by.with_index{|chr, index,| index }.transform_values{|letter| letter[0]}.invert
+    msg_array.each_with_object([]) do |(msg, v), arr|
+      arr << character_set_new[msg]
+    end
+  end
+  def index_value_shifts(array_values, shifts)
+    shifts.keys.map do |shift|
+      require "pry"; binding.pry  
+    end
+  end
 end
