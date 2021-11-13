@@ -4,9 +4,9 @@ require './lib/scrambler'
 require './lib/keygen'
 
 RSpec.describe Scrambler do
-  let(:message){'hello world'}
-  let(:key) {'02715'}
-  let(:date) {'040895'}
+  let(:message) { 'hello world' }
+  let(:key) { '02715' }
+  let(:date) { '040895' }
   let(:scrambler) { Scrambler.new(message, date, key) }
   let(:key_gen) { KeyGen.new }
   it 'exists' do
@@ -38,8 +38,7 @@ RSpec.describe Scrambler do
         { A: 2,
           B: 27,
           C: 71,
-          D: 15
-         }
+          D: 15 }
       expect(actual).to eq(expected)
     end
   end
@@ -47,20 +46,20 @@ RSpec.describe Scrambler do
     it 'creates offset values with date' do
       actual = scrambler.shifts('040889')
       expected = {
-        A:0,
-        B:3,
-        C:2,
-        D:1
+        A: 0,
+        B: 3,
+        C: 2,
+        D: 1
       }
       expect(actual).to eq(expected)
     end
     it 'creates offset values using todays date' do
       actual = scrambler.shifts
       expected = {
-        A:6,
-        B:6,
-        C:4,
-        D:1
+        A: 6,
+        B: 6,
+        C: 4,
+        D: 1
       }
       expect(actual).to eq(expected)
     end
@@ -69,11 +68,10 @@ RSpec.describe Scrambler do
     it 'combines the key postion with the shifts' do
       actual = scrambler.combined('02715', '040889')
       expected =
-      { A: 2,
-        B: 30,
-        C: 73,
-        D: 16
-       }
+        { A: 2,
+          B: 30,
+          C: 73,
+          D: 16 }
       expect(actual).to eq(expected)
     end
   end
@@ -87,17 +85,8 @@ RSpec.describe Scrambler do
   end
   describe 'index_values/1' do
     it 'returns array of index values for a word' do
-
       actual = scrambler.index_values('hello world')
       expected = [7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
-      expect(actual).to eq(expected)
-    end
-  end
-  describe 'index_values_shifts /2' do
-    it 'returns array of index values + shift values for a msg' do
-      actual = scrambler.index_value_shifts([7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3],
-        { A: 2, B: 30, C: 73, D: 16 })
-      expected = [9, 34, 84, 27, 16, 56, 95, 30, 19, 41, 76]
       expect(actual).to eq(expected)
     end
   end
