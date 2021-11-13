@@ -33,7 +33,7 @@ RSpec.describe Scrambler do
   end
   describe '#keys/1' do
     it 'creates a 4 step key values with injected key' do
-      actual = scrambler.keys('02715')
+      actual = scrambler.keys
       expected =
         { A: 2,
           B: 27,
@@ -42,43 +42,43 @@ RSpec.describe Scrambler do
       expect(actual).to eq(expected)
     end
   end
-  describe '#shifts/1' do
+  describe '#shifts' do
     it 'creates offset values with date' do
-      actual = scrambler.shifts('040889')
-      expected = {
-        A: 0,
-        B: 3,
-        C: 2,
-        D: 1
-      }
-      expect(actual).to eq(expected)
-    end
-    it 'creates offset values using todays date' do
       actual = scrambler.shifts
       expected = {
-        A: 6,
-        B: 6,
-        C: 4,
-        D: 1
+        A: 1,
+        B: 0,
+        C: 2,
+        D: 5
       }
       expect(actual).to eq(expected)
     end
   end
-  describe '#combined/2' do
+  describe '#combined' do
     it 'combines the key postion with the shifts' do
-      actual = scrambler.combined('02715', '040889')
+      actual = scrambler.combined
       expected =
-        { A: 2,
-          B: 30,
+        { A: 3,
+          B: 27,
           C: 73,
-          D: 16 }
+          D: 20 }
       expect(actual).to eq(expected)
     end
   end
-  describe 'index_values/1' do
+  describe 'index_values' do
     it 'returns array of index values for a word' do
-      actual = scrambler.index_values('hello world')
+      actual = scrambler.index_values
       expected = [7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
+      expect(actual).to eq(expected)
+    end
+    it 'doesnt index special characters' do
+      scrambler = Scrambler.new('hello world!', key, date)
+      actual = scrambler.index_values
+      expected = [7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3, '!']
+      expect(actual).to eq(expected)
+      scrambler = Scrambler.new('<hello world!', key, date)
+      actual = scrambler.index_values
+      expected = ['<', 7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3, '!']
       expect(actual).to eq(expected)
     end
   end
