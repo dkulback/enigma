@@ -37,27 +37,38 @@ class Scrambler
     end
   end
 
-  def splice_word(word)
-    scramble_word = word.split('')
-    rotator = combined(key, date)
-    new_word = ' '
-    character_set_1 = character_set.group_by.with_index do |_chr, index,|
-                        index
-                      end.transform_values { |letter| letter[0] }.invert
-    scramble_word.map do |letter|
-      rotator.map do |k, _v|
-        character_set.rotate(character_set_1[letter] + rotator[k])
-      end
-    end
-  end
-
   def index_values(message)
-    msg_array = message.split('')
+    msg_array = message.chars
     character_set_new = character_set.group_by.with_index do |_chr, index,|
                           index
                         end.transform_values { |letter| letter[0] }.invert
     msg_array.each_with_object([]) do |(msg, _v), arr|
       arr << character_set_new[msg]
     end
+  end
+
+  def splice
+    shifter = combined(@key, @date)
+    indexed = index_values(@message)
+    ciphered = ''
+    until indexed.count == 0
+      if indexed.count > 0
+        ciphered.concat(character_set.rotate(indexed[0] + shifter[:A])[0])
+        indexed.shift
+      end
+      if indexed.count > 0
+        ciphered.concat(character_set.rotate(indexed[0] + shifter[:B])[0])
+        indexed.shift
+      end
+      if indexed.count > 0
+        ciphered.concat(character_set.rotate(indexed[0] + shifter[:C])[0])
+        indexed.shift
+      end
+      if indexed.count > 0
+        ciphered.concat(character_set.rotate(indexed[0] + shifter[:D])[0])
+        indexed.shift
+      end
+    end
+    ciphered
   end
 end

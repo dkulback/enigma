@@ -75,18 +75,17 @@ RSpec.describe Scrambler do
       expect(actual).to eq(expected)
     end
   end
-  describe '#splice/1' do
-    xit 'splices message' do
-      scrambler.combined('02715', '040895')
-      actual = scrambler.splice_word('hello world')
-      expected = 'keder ohulw'
-      expect(actual).to eq(expected)
-    end
-  end
   describe 'index_values/1' do
     it 'returns array of index values for a word' do
       actual = scrambler.index_values('hello world')
       expected = [7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
+      expect(actual).to eq(expected)
+    end
+  end
+  describe '#splice' do
+    it 'splices message' do
+      actual = scrambler.splice
+      expected = 'keder ohulw'
       expect(actual).to eq(expected)
     end
   end
