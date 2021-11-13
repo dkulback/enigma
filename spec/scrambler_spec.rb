@@ -89,7 +89,7 @@ RSpec.describe Scrambler do
     end
   end
   describe '#splice' do
-    xit 'rotates message by keys and offsets' do
+    it 'rotates message by keys and offsets' do
       actual = scrambler.splice
       expected = 'keder ohulw'
       expect(actual).to eq(expected)
