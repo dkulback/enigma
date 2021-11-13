@@ -71,11 +71,37 @@ RSpec.describe Scrambler do
       expected = [7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
       expect(actual).to eq(expected)
     end
+    it 'doesnt index special characters' do
+      scrambler = Scrambler.new('hello world!', key, date)
+      actual = scrambler.index_values
+      expected = [7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3, '!']
+      expect(actual).to eq(expected)
+      scrambler = Scrambler.new('<hello world!', key, date)
+      actual = scrambler.index_values
+      expected = ['<', 7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3, '!']
+      expect(actual).to eq(expected)
+    end
+    it 'downcases capital letters' do
+      scrambler = Scrambler.new('Hello world', key, date)
+      actual = scrambler.index_values
+      expected = [7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3,]
+      expect(actual).to eq(expected)
+    end
   end
   describe '#splice' do
-    it 'splices message' do
+    it 'rotates message by keys and offsets' do
       actual = scrambler.splice
       expected = 'keder ohulw'
+      expect(actual).to eq(expected)
+    end
+    it 'skips special characters and downcases uppercase' do
+      scrambler = Scrambler.new('!Hello world', date, key)
+      actual = scrambler.splice
+      expected = '!keder ohulw'
+      expect(actual).to eq(expected)
+      scrambler = Scrambler.new('!!!Hello wo!rld', date, key)
+      actual = scrambler.splice
+      expected = '!!!keder oh!ulw'
       expect(actual).to eq(expected)
     end
   end
