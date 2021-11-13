@@ -1,6 +1,7 @@
 require 'simplecov'
 SimpleCov.start
 require './lib/enigma'
+require 'timecop'
 
 RSpec.describe Enigma do
   class MockGenKey
@@ -36,36 +37,36 @@ RSpec.describe Enigma do
   end
   describe 'encrypt/2' do
     before do
-      Timecop.freeze_at('1995-04-08')
+       Timecop.freeze(Date.today.strftime('%y%m%d'))
     end
     xit 'encrypts messages with key and uses todays date' do
       actual = enigma.encrypt('hello world', '02715')
       expected =
         {
-          encryption: 'keder ohulw',
+          encryption: 'pkfawfqdzry',
           key: '02715',
-          date: Date.today
+          date: Date.today.strftime('%d%m%y')
         }
       expect(actual).to eq(expected)
     end
   end
   describe 'encrypt/1' do
     before do
-      Timecop.freeze_at('1995-04-08')
+       Timecop.freeze(Date.today.strftime('%y%m%d'))
     end
     it 'encrypts messages by generating a key and uses today date' do
       actual = enigma.encrypt('hello world')
       expected =
         {
-          encryption: 'keder ohulw',
+          encryption: "owltvrwwycd",
           key: mock_key,
-          date: Date.today
+          date: Date.today.strftime('%d%m%y')
         }
       expect(actual).to eq(expected)
     end
   end
   describe '#decrypt/3' do
-    xit 'decrypts messages' do
+    it 'decrypts messages' do
       actual = enigma.decrypt('keder ohulw', '02715', '040895')
       expected =
         {
@@ -93,8 +94,8 @@ RSpec.describe Enigma do
         expected =
           {
             encryption: 'hello world',
-            key: GenKey.new,
-            date: Date.today
+            key: MockGenKey.new(mock_key),
+            date: Date.today.strftime('%d%m%y')
           }
         expect(actual).to eq(expected)
       end

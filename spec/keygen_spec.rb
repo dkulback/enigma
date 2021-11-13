@@ -11,7 +11,7 @@ RSpec.describe KeyGen do
   end
   describe '#generate' do
     it 'generates 5 digit random numbers' do
-      actual = KeyGen.generate
+      actual = KeyGen.call
       expected = '12987'
     end
   end

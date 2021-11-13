@@ -5,7 +5,7 @@ class KeyGen
     @gen_key = gen_key
   end
 
-  def self.generate
+  def self.call
     @gen_key = rand(0..10**5).to_s.rjust(5, '0')
   end
 end

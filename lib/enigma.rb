@@ -1,14 +1,17 @@
+require './scrambler'
+require './keygen'
+
 class Enigma
   attr_reader :key_gen
 
   def initialize(key_gen: KeyGen)
-    @keygen = key_gen
+    @key_gen = key_gen
   end
 
   def encrypt(message, key = key_gen.call, date = Date.today.strftime('%d%m%y'))
     encrypted =
       {
-        encryption: message,
+        encryption: Scrambler.new(message, date, key).splice,
         key: key,
         date: date
       }
