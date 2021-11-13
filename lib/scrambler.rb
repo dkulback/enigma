@@ -8,7 +8,7 @@ class Scrambler
     @character_set = ('a'..'z').to_a << ' '
   end
 
-  def keys(key, _date = Date.today.strftime('%d%m%y'))
+  def keys
     keys =
       {
         A: key[0..1].to_i,
@@ -18,8 +18,8 @@ class Scrambler
       }
   end
 
-  def shifts(date = Date.today.strftime('%d%m%y'))
-    phase_1 = date.to_i * date.to_i
+  def shifts
+    phase_1 = @date.to_i * @date.to_i
     phase_2 = phase_1.digits.reverse[-4, 4]
     phase_3 = {}
     phase_3[:A] = phase_2[0]
@@ -29,44 +29,61 @@ class Scrambler
     phase_3
   end
 
-  def combined(key, date = Date.today.strftime('%d%m%y'))
-    the_keys = keys(key)
-    the_shifts = shifts(date)
-    keys_with_shifts = the_keys.merge!(the_shifts) do |_h, oldv, newv|
+  def combined
+    keys.merge!(shifts) do |_h, oldv, newv|
       oldv + newv
     end
   end
 
-  def index_values(message)
-    msg_array = message.chars
+  def index_values
+    msg_array = message.downcase.chars
     character_set_new = character_set.group_by.with_index do |_chr, index,|
                           index
                         end.transform_values { |letter| letter[0] }.invert
     msg_array.each_with_object([]) do |(msg, _v), arr|
+      if !character_set.include?(msg)
+        arr << msg
+      else
       arr << character_set_new[msg]
+    end
     end
   end
 
   def splice
-    shifter = combined(@key, @date)
-    indexed = index_values(@message)
+    message_values = index_values
     ciphered = ''
-    until indexed.count == 0
-      if indexed.count > 0
-        ciphered.concat(character_set.rotate(indexed[0] + shifter[:A])[0])
-        indexed.shift
+    until message_values.count == 0
+      while message_values.count > 0 && message_values[0].class == String
+        ciphered.concat(message_values[0])
+        message_values.shift
       end
-      if indexed.count > 0
-        ciphered.concat(character_set.rotate(indexed[0] + shifter[:B])[0])
-        indexed.shift
+      if message_values.count > 0
+        ciphered.concat(character_set.rotate(message_values[0] + combined[:A])[0])
+        message_values.shift
       end
-      if indexed.count > 0
-        ciphered.concat(character_set.rotate(indexed[0] + shifter[:C])[0])
-        indexed.shift
+      while message_values.count > 0 && message_values[0].class == String
+        ciphered.concat(message_values[0])
+        message_values.shift
       end
-      if indexed.count > 0
-        ciphered.concat(character_set.rotate(indexed[0] + shifter[:D])[0])
-        indexed.shift
+      if message_values.count > 0
+        ciphered.concat(character_set.rotate(message_values[0] + combined[:B])[0])
+        message_values.shift
+      end
+      while message_values.count > 0 && message_values[0].class == String
+        ciphered.concat(message_values[0])
+        message_values.shift
+      end
+      if message_values.count > 0
+        ciphered.concat(character_set.rotate(message_values[0] + combined[:C])[0])
+        message_values.shift
+      end
+      while message_values.count > 0 && message_values[0].class == String
+        ciphered.concat(message_values[0])
+        message_values.shift
+      end
+      if message_values.count > 0
+        ciphered.concat(character_set.rotate(message_values[0] + combined[:D])[0])
+        message_values.shift
       end
     end
     ciphered
