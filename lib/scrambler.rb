@@ -36,7 +36,7 @@ class Scrambler
   end
 
   def index_values
-    msg_array = message.chars
+    msg_array = message.downcase.chars
     character_set_new = character_set.group_by.with_index do |_chr, index,|
                           index
                         end.transform_values { |letter| letter[0] }.invert
@@ -45,7 +45,7 @@ class Scrambler
         arr << msg
       else
       arr << character_set_new[msg]
-    end 
+    end
     end
   end
 
@@ -53,16 +53,32 @@ class Scrambler
     message_values = index_values
     ciphered = ''
     until message_values.count == 0
+      while message_values.count > 0 && message_values[0].class == String
+        ciphered.concat(message_values[0])
+        message_values.shift
+      end
       if message_values.count > 0
         ciphered.concat(character_set.rotate(message_values[0] + combined[:A])[0])
+        message_values.shift
+      end
+      while message_values.count > 0 && message_values[0].class == String
+        ciphered.concat(message_values[0])
         message_values.shift
       end
       if message_values.count > 0
         ciphered.concat(character_set.rotate(message_values[0] + combined[:B])[0])
         message_values.shift
       end
+      while message_values.count > 0 && message_values[0].class == String
+        ciphered.concat(message_values[0])
+        message_values.shift
+      end
       if message_values.count > 0
         ciphered.concat(character_set.rotate(message_values[0] + combined[:C])[0])
+        message_values.shift
+      end
+      while message_values.count > 0 && message_values[0].class == String
+        ciphered.concat(message_values[0])
         message_values.shift
       end
       if message_values.count > 0
