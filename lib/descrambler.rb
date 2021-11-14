@@ -1,4 +1,7 @@
-require './scrambler'
+require 'simplecov'
+SimpleCov.start
+require './lib/scrambler'
+require './lib/keygen'
 class Descrambler < Scrambler
 
   def initialize(message, date, key)

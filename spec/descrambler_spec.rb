@@ -1,5 +1,6 @@
 require 'simplecov'
 SimpleCov.start
+
 require './lib/descrambler'
 require './lib/scrambler'
 require './lib/keygen'

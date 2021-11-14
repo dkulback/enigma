@@ -1,6 +1,6 @@
 require './scrambler'
-require './keygen'
 require './descrambler'
+require './keygen'
 
 class Enigma
   attr_reader :key_gen

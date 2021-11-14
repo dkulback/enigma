@@ -1,6 +1,8 @@
 require 'simplecov'
 SimpleCov.start
+
 require './lib/enigma'
+require './lib/scrambler'
 require 'timecop'
 
 RSpec.describe Enigma do
