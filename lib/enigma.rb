@@ -1,5 +1,5 @@
 require_relative 'scrambler'
-# require './descrambler'
+require_relative 'descrambler'
 require 'date'
 
 class Enigma
@@ -21,7 +21,7 @@ class Enigma
   def decrypt(message, key = key_gen.call, date = Date.today.strftime('%d%m%y'))
     decrypted =
       {
-        encryption: Descrambler.new(message, date, key).desplice,
+        decryption: Descrambler.new(message, date, key).desplice,
         key: key,
         date: date
       }
