@@ -41,6 +41,10 @@ RSpec.describe Descrambler do
         actual = descrambler.desplice
         expected = 'hello world!'
         expect(actual).to eq(expected)
+        descrambler = Descrambler.new("pkfawfqdzry", "131121", "02715")
+        actual = descrambler.desplice
+        expected = 'hello world'
+        expect(actual).to eq(expected)
       end
     end
 end

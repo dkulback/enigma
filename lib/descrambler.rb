@@ -42,6 +42,7 @@ class Descrambler < Scrambler
         message_values.shift
       end
     end
+
     ciphered
   end
 end

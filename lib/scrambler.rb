@@ -36,11 +36,7 @@ class Scrambler
   end
 
   def index_values
-<<<<<<< HEAD
-    msg_array = message.chars
-=======
     msg_array = message.downcase.chars
->>>>>>> d16f457da4377fc83298bb00b0e9c07f05698310
     character_set_new = character_set.group_by.with_index do |_chr, index,|
                           index
                         end.transform_values { |letter| letter[0] }.invert
@@ -57,18 +53,6 @@ class Scrambler
     message_values = index_values
     ciphered = ''
     until message_values.count == 0
-<<<<<<< HEAD
-      if message_values.count > 0
-        ciphered.concat(character_set.rotate(message_values[0] + combined[:A])[0])
-        message_values.shift
-      end
-      if message_values.count > 0
-        ciphered.concat(character_set.rotate(message_values[0] + combined[:B])[0])
-        message_values.shift
-      end
-      if message_values.count > 0
-        ciphered.concat(character_set.rotate(message_values[0] + combined[:C])[0])
-=======
       while message_values.count > 0 && message_values[0].class == String
         ciphered.concat(message_values[0])
         message_values.shift
@@ -95,7 +79,6 @@ class Scrambler
       end
       while message_values.count > 0 && message_values[0].class == String
         ciphered.concat(message_values[0])
->>>>>>> d16f457da4377fc83298bb00b0e9c07f05698310
         message_values.shift
       end
       if message_values.count > 0
