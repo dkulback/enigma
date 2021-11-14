@@ -19,7 +19,7 @@ class Enigma
   end
 
   def decrypt(message, key = key_gen.call, date = Date.today.strftime('%d%m%y'))
-    encrypted =
+    decrypted =
       {
         encryption: Descrambler.new(message, date, key).desplice,
         key: key,
