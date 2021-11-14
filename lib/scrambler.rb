@@ -41,11 +41,11 @@ class Scrambler
                           index
                         end.transform_values { |letter| letter[0] }.invert
     msg_array.each_with_object([]) do |(msg, _v), arr|
-      if !character_set.include?(msg)
-        arr << msg
-      else
-      arr << character_set_new[msg]
-    end
+      arr << if !character_set.include?(msg)
+               msg
+             else
+               character_set_new[msg]
+             end
     end
   end
 
@@ -53,7 +53,7 @@ class Scrambler
     message_values = index_values
     ciphered = ''
     until message_values.count == 0
-      while message_values.count > 0 && message_values[0].class == String
+      while message_values.count > 0 && message_values[0].instance_of?(String)
         ciphered.concat(message_values[0])
         message_values.shift
       end
@@ -61,7 +61,7 @@ class Scrambler
         ciphered.concat(character_set.rotate(message_values[0] + combined[:A])[0])
         message_values.shift
       end
-      while message_values.count > 0 && message_values[0].class == String
+      while message_values.count > 0 && message_values[0].instance_of?(String)
         ciphered.concat(message_values[0])
         message_values.shift
       end
@@ -69,7 +69,7 @@ class Scrambler
         ciphered.concat(character_set.rotate(message_values[0] + combined[:B])[0])
         message_values.shift
       end
-      while message_values.count > 0 && message_values[0].class == String
+      while message_values.count > 0 && message_values[0].instance_of?(String)
         ciphered.concat(message_values[0])
         message_values.shift
       end
@@ -77,7 +77,7 @@ class Scrambler
         ciphered.concat(character_set.rotate(message_values[0] + combined[:C])[0])
         message_values.shift
       end
-      while message_values.count > 0 && message_values[0].class == String
+      while message_values.count > 0 && message_values[0].instance_of?(String)
         ciphered.concat(message_values[0])
         message_values.shift
       end

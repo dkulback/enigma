@@ -1,9 +1,6 @@
-require 'simplecov'
-SimpleCov.start
-require './lib/scrambler'
-require './lib/keygen'
-class Descrambler < Scrambler
+require_relative 'scrambler'
 
+class Descrambler < Scrambler
   def initialize(message, date, key)
     super(message, date, key)
   end
@@ -12,7 +9,7 @@ class Descrambler < Scrambler
     message_values = index_values
     ciphered = ''
     until message_values.count == 0
-      while message_values.count > 0 && message_values[0].class == String
+      while message_values.count > 0 && message_values[0].instance_of?(String)
         ciphered.concat(message_values[0])
         message_values.shift
       end
@@ -20,7 +17,7 @@ class Descrambler < Scrambler
         ciphered.concat(character_set.rotate(message_values[0] - combined[:A])[0])
         message_values.shift
       end
-      while message_values.count > 0 && message_values[0].class == String
+      while message_values.count > 0 && message_values[0].instance_of?(String)
         ciphered.concat(message_values[0])
         message_values.shift
       end
@@ -28,7 +25,7 @@ class Descrambler < Scrambler
         ciphered.concat(character_set.rotate(message_values[0] - combined[:B])[0])
         message_values.shift
       end
-      while message_values.count > 0 && message_values[0].class == String
+      while message_values.count > 0 && message_values[0].instance_of?(String)
         ciphered.concat(message_values[0])
         message_values.shift
       end
@@ -36,7 +33,7 @@ class Descrambler < Scrambler
         ciphered.concat(character_set.rotate(message_values[0] - combined[:C])[0])
         message_values.shift
       end
-      while message_values.count > 0 && message_values[0].class == String
+      while message_values.count > 0 && message_values[0].instance_of?(String)
         ciphered.concat(message_values[0])
         message_values.shift
       end

@@ -1,8 +1,9 @@
 require 'simplecov'
 SimpleCov.start
 
+# require './lib/scrambler'
 require './lib/enigma'
-require './lib/scrambler'
+# require './lib/keygen'
 require 'timecop'
 
 RSpec.describe Enigma do

@@ -2,8 +2,6 @@ require 'simplecov'
 SimpleCov.start
 
 require './lib/descrambler'
-require './lib/scrambler'
-require './lib/keygen'
 
 RSpec.describe Descrambler do
   let(:message) { 'keder ohulw' }
@@ -35,17 +33,17 @@ RSpec.describe Descrambler do
   end
   describe '#desplice' do
     it 'desplices message with key and date' do
-        actual = descrambler.desplice
-        expected = 'hello world'
-        expect(actual).to eq(expected)
-        descrambler = Descrambler.new('keder ohulw!', date, key)
-        actual = descrambler.desplice
-        expected = 'hello world!'
-        expect(actual).to eq(expected)
-        descrambler = Descrambler.new("pkfawfqdzry", "131121", "02715")
-        actual = descrambler.desplice
-        expected = 'hello world'
-        expect(actual).to eq(expected)
-      end
+      actual = descrambler.desplice
+      expected = 'hello world'
+      expect(actual).to eq(expected)
+      descrambler = Descrambler.new('keder ohulw!', date, key)
+      actual = descrambler.desplice
+      expected = 'hello world!'
+      expect(actual).to eq(expected)
+      descrambler = Descrambler.new('pkfawfqdzry', '131121', '02715')
+      actual = descrambler.desplice
+      expected = 'hello world'
+      expect(actual).to eq(expected)
     end
+  end
 end
