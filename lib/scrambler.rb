@@ -36,15 +36,16 @@ class Scrambler
   end
 
   def index_values
+    index_alphabet = character_set.each_with_index.map do |letter, index|
+      [letter, index]
+    end.to_h
+
     msg_array = message.downcase.chars
-    character_set_new = character_set.group_by.with_index do |_chr, index,|
-                          index
-                        end.transform_values { |letter| letter[0] }.invert
     msg_array.each_with_object([]) do |(msg, _v), arr|
       arr << if !character_set.include?(msg)
                msg
              else
-               character_set_new[msg]
+               index_alphabet[msg]
              end
     end
   end
