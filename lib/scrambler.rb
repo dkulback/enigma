@@ -39,7 +39,6 @@ class Scrambler
     index_alphabet = character_set.each_with_index.map do |letter, index|
       [letter, index]
     end.to_h
-
     msg_array = message.downcase.chars
     msg_array.each_with_object([]) do |(msg, _v), arr|
       arr << if !character_set.include?(msg)

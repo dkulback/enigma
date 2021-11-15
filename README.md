@@ -23,4 +23,4 @@ https://backend.turing.edu/module1/projects/enigma/
 Functionality: 3
 OOP: 4 - includes use of inheritance
 Ruby Conventions : 2.5 - Use of a method that could have been more concise
-TDD: 3 - Methods are tests as a hole and singularly through out classes
+TDD: 3 - Methods are tested as a hole and singularly through out classes
