@@ -29,7 +29,7 @@ RSpec.describe Enigma do
   end
 
   describe '#encrypt/3' do
-    xit 'encrypts messages with key and date' do
+    it 'encrypts messages with key and date' do
       actual = enigma.encrypt('hello world', '02715', '040895')
       expected =
         {
@@ -41,7 +41,7 @@ RSpec.describe Enigma do
     end
   end
   describe 'encrypt/2' do
-    xit 'encrypts messages with key and uses todays date' do
+    it 'encrypts messages with key and uses todays date' do
       actual = enigma.encrypt('hello world', '02715')
       expected =
         {
@@ -53,7 +53,7 @@ RSpec.describe Enigma do
     end
   end
   describe 'encrypt/1' do
-    xit 'encrypts messages by generating a key and uses today date' do
+    it 'encrypts messages by generating a key and uses today date' do
       actual = enigma.encrypt('hello world')
       expected =
         {
@@ -65,11 +65,11 @@ RSpec.describe Enigma do
     end
   end
   describe '#decrypt/3' do
-    xit 'decrypts messages' do
-      actual = enigma.decrypt('keder ohulw', '02715', '040895')
+    it 'decrypts messages' do
+      actual = enigma.decrypt('keder !ohulw', '02715', '040895')
       expected =
         {
-          encryption: 'hello world',
+          decryption: 'hello !world',
           key: '02715',
           date: '040895'
         }
@@ -78,12 +78,12 @@ RSpec.describe Enigma do
   end
   describe '#decrypt/2' do
     it 'decrypts messages with key and uses todays date' do
-      encrypted = enigma.encrypt('hello world', '02715')
+      encrypted = enigma.encrypt('hello! world', '02715')
       actual = enigma.decrypt(encrypted[:encryption], '02715')
 
       expected =
         {
-          encryption: 'hello world',
+          decryption: 'hello! world',
           key: '02715',
           date: date.strftime('%d%m%y')
         }
@@ -92,11 +92,11 @@ RSpec.describe Enigma do
   end
   describe '#decrypt/1' do
     it 'decrypts messages by generating a key and uses today date' do
-      encrypted = enigma.encrypt('hello world')
+      encrypted = enigma.encrypt('>hello world')
       actual = enigma.decrypt(encrypted[:encryption])
       expected =
         {
-          encryption: 'hello world',
+          decryption: '>hello world',
           key: mock_key,
           date: date.strftime('%d%m%y')
         }

@@ -1,5 +1,7 @@
 require_relative 'scrambler'
 require_relative 'descrambler'
+require_relative 'keygen'
+
 require 'date'
 
 class Enigma
