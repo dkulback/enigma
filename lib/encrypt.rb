@@ -11,7 +11,7 @@ encrypted_text = Enigma.new.encrypt(text)
 
 encryption = File.open('./lib/' + ARGV[1], 'w')
 
-encryption.write(encrypted_text)
+encryption.write(encrypted_text[:encryption])
 
 encryption.close
 
