@@ -15,12 +15,12 @@ RSpec.describe Scrambler do
     expect(actual).to be_a(expected)
   end
   describe '#attrbutes' do
-    it 'has a message' do
+    xit 'has a message' do
       actual = scrambler.message
       expected = message
       expect(actual).to eq(expected)
     end
-    it 'has a optional date' do
+    xit 'has a optional date' do
       actual = scrambler.date
       expected = date
       expect(actual).to eq(expected)
@@ -84,7 +84,21 @@ RSpec.describe Scrambler do
     it 'downcases capital letters' do
       scrambler = Scrambler.new('Hello world', key, date)
       actual = scrambler.index_values
-      expected = [7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3,]
+      expected = [7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
+      expect(actual).to eq(expected)
+    end
+  end
+
+  describe '#rotation_values' do
+    it 'adds shift values alphabet' do
+      actual = scrambler.rotation_values
+      expected = [10, 31, 84, 31, 17, 53, 95, 34, 20, 38, 76]
+      expect(actual).to eq(expected)
+    end
+    it 'forgives special CHARACTERS' do
+      scrambler = Scrambler.new('!Hello! world', date, key)
+      actual = scrambler.rotation_values
+      expected = ['!', 10, 31, 84, 31, 17, '!', 53, 95, 34, 20, 38, 76]
       expect(actual).to eq(expected)
     end
   end

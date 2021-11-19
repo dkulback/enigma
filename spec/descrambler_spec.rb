@@ -31,6 +31,13 @@ RSpec.describe Descrambler do
       expect(actual).to eq(expected)
     end
   end
+  describe '#rotation_values' do
+    it 'subtracts shift values from index values' do
+      actual = descrambler.rotation_values
+      expected = [7, -23, -70, -16, 14, -1, -59, -13, 17, -16, -51]
+    end
+  end
+
   describe '#desplice' do
     it 'desplices message with key and date' do
       actual = descrambler.desplice
