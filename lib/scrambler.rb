@@ -9,13 +9,12 @@ class Scrambler
   end
 
   def keys
-    keys =
-      {
-        A: key[0..1].to_i,
-        B: key[1..2].to_i,
-        C: key[2..3].to_i,
-        D: key[3..4].to_i
-      }
+    {
+      A: key[0..1].to_i,
+      B: key[1..2].to_i,
+      C: key[2..3].to_i,
+      D: key[3..4].to_i
+    }
   end
 
   def shifts
@@ -37,54 +36,25 @@ class Scrambler
 
   def index_values
     msg_array = message.downcase.chars
-    character_set_new = character_set.group_by.with_index do |_chr, index,|
-                          index
-                        end.transform_values { |letter| letter[0] }.invert
-    msg_array.each_with_object([]) do |(msg, _v), arr|
-      arr << if !character_set.include?(msg)
-               msg
-             else
-               character_set_new[msg]
-             end
+    indexed = {}
+    character_set.each_with_index { |c, i| indexed[c] = i }
+    msg_array.each_with_object([]) do |c, result|
+      result << (indexed[c] || c)
     end
   end
 
   def splice
-    message_values = index_values
+    message_values = index_values.reject { |a| a.is_a?(String) }.each_slice(4).to_a
     ciphered = ''
-    until message_values.count == 0
-      while message_values.count > 0 && message_values[0].instance_of?(String)
-        ciphered.concat(message_values[0])
-        message_values.shift
-      end
-      if message_values.count > 0
-        ciphered.concat(character_set.rotate(message_values[0] + combined[:A])[0])
-        message_values.shift
-      end
-      while message_values.count > 0 && message_values[0].instance_of?(String)
-        ciphered.concat(message_values[0])
-        message_values.shift
-      end
-      if message_values.count > 0
-        ciphered.concat(character_set.rotate(message_values[0] + combined[:B])[0])
-        message_values.shift
-      end
-      while message_values.count > 0 && message_values[0].instance_of?(String)
-        ciphered.concat(message_values[0])
-        message_values.shift
-      end
-      if message_values.count > 0
-        ciphered.concat(character_set.rotate(message_values[0] + combined[:C])[0])
-        message_values.shift
-      end
-      while message_values.count > 0 && message_values[0].instance_of?(String)
-        ciphered.concat(message_values[0])
-        message_values.shift
-      end
-      if message_values.count > 0
-        ciphered.concat(character_set.rotate(message_values[0] + combined[:D])[0])
-        message_values.shift
-      end
+    rotated = []
+    message_values.each do |a|
+      rotated << a.zip(combined.values).map(&:sum)
+    end
+    rotated.flatten.each do |value|
+      ciphered.concat(character_set.rotate(value)[0])
+    end
+    index_values.each_with_index do |c, i|
+      ciphered.insert(i, c) if c.is_a? String
     end
     ciphered
   end
