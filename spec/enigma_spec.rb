@@ -42,6 +42,7 @@ RSpec.describe Enigma do
   end
   describe 'encrypt/2' do
     it 'encrypts messages with key and uses todays date' do
+      allow(Date).to receive(:today).and_return(Date.new(2021, 11, 14))
       actual = enigma.encrypt('hello world', '02715')
       expected =
         {
