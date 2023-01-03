@@ -12,20 +12,18 @@ class Enigma
   end
 
   def encrypt(message, key = key_gen.call, date = Date.today.strftime('%d%m%y'))
-    encrypted =
-      {
-        encryption: Scrambler.new(message, date, key).splice,
-        key: key,
-        date: date
-      }
+    {
+      encryption: Scrambler.new(message, date, key).splice,
+      key: key,
+      date: date
+    }
   end
 
   def decrypt(message, key = key_gen.call, date = Date.today.strftime('%d%m%y'))
-    decrypted =
-      {
-        decryption: Descrambler.new(message, date, key).desplice,
-        key: key,
-        date: date
-      }
+    {
+      decryption: Descrambler.new(message, date, key).desplice,
+      key: key,
+      date: date
+    }
   end
 end
