@@ -17,4 +17,10 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-https://backend.turing.edu/module1/projects/enigma/ 
+https://backend.turing.edu/module1/projects/enigma/
+
+## Self Evaluation
+Functionality: 3
+OOP: 4 - includes use of inheritance
+Ruby Conventions : 2.5 - Use of a method that could have been more concise
+TDD: 3 - Methods are tested as a hole and singularly through out classes

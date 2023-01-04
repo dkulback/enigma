@@ -84,7 +84,7 @@ RSpec.describe Scrambler do
     it 'downcases capital letters' do
       scrambler = Scrambler.new('Hello world', key, date)
       actual = scrambler.index_values
-      expected = [7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3,]
+      expected = [7, 4, 11, 11, 14, 26, 22, 14, 17, 11, 3]
       expect(actual).to eq(expected)
     end
   end

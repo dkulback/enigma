@@ -43,14 +43,21 @@ class Scrambler
     end
   end
 
-  def splice
-    message_values = index_values.reject { |a| a.is_a?(String) }.each_slice(4).to_a
-    ciphered = ''
+  def remove_strings
+    index_values.reject { |a| a.is_a?(String) }.each_slice(4).to_a
+  end
+
+  def add_cipher
     rotated = []
-    message_values.each do |a|
+    remove_strings.each do |a|
       rotated << a.zip(combined.values).map(&:sum)
     end
-    rotated.flatten.each do |value|
+    rotated.flatten
+  end
+
+  def splice
+    ciphered = ''
+    add_cipher.each do |value|
       ciphered.concat(character_set.rotate(value)[0])
     end
     index_values.each_with_index do |c, i|
